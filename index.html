@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Extensao</title>
+<link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+
+<!-- ÁREA DE CADASTRO -->
+<div class="container" id="cadastroArea">
+    <div class="titulo-site">
+        HealthCare+
+    </div>
+
+    <h2>Cadastro</h2>
+    <input type="text" id="nome" placeholder="Digite seu nome">
+    <input type="email" id="email" placeholder="Digite seu email">
+    <input type="password" id="senha" placeholder="Crie uma senha">
+
+    <button onclick="fazerCadastro()">Cadastrar</button>
+
+</div>
+
+<!-- ÁREA DOS SINTOMAS -->
+<div class="container hidden" id="sintomasArea">
+    <p> aqui nos diga o que voce tem sentido e passaremos o resultado</p>
+    <br>
+    <h2>Descreva seus sintomas</h2>
+    <textarea id="sintomas" rows="6" placeholder="Ex: dor de cabeça, febre, tosse..."></textarea>
+    <button onclick="enviarSintomas()">Enviar</button>
+    <p class="mensagem" id="mensagem"></p>
+</div>
+
+<!-- ÁREA DO RESULTADO -->
+
+    <div class="resultado hidden" id="resultadoArea">
+        <h3>Resultado</h3>
+        <p id="resultadoTexto"></p>
+    </div>
+
+</div>
+
+<script>
+    function fazerCadastro(){
+        const nome = document.getElementById("nome").value;
+        const email = document.getElementById("email").value;
+        const senha = document.getElementById("senha").value;
+
+    if(nome === "" || email === "" || senha === ""){
+        alert("Preencha todos os campos!");
+        return;
+    }
+
+      // ESCONDE CADASTRO
+        document.getElementById("cadastroArea")
+        .classList.add("hidden");
+
+      // MOSTRA ÁREA DE SINTOMAS
+        document.getElementById("sintomasArea")
+        .classList.remove("hidden");
+
+    }
+
+    function enviarSintomas(){
+
+    const sintomas = document.getElementById("sintomas").value;
+    if(sintomas.trim() === ""){
+        alert("Por favor, escreva os sintomas.");
+        return;
+    }
+
+    document.getElementById("mensagem").innerText =
+        "Sintomas enviados com sucesso!";
+
+      // MOSTRA RESULTADO
+        document.getElementById("resultadoArea")
+        .classList.remove("hidden");
+
+      // RESULTADO AUTOMÁTICO SIMPLES
+    let resultado = "";
+    const texto = sintomas.toLowerCase();
+    if(
+        texto.includes("febre") ||
+        texto.includes("tosse")
+    ){
+        resultado =
+            "Os sintomas podem estar relacionados a gripe ou resfriado.";
+    }
+        
+    else if(
+        texto.includes("dor de cabeça")
+    ){
+        resultado =
+        "Os sintomas podem estar ligados ao estresse ou cansaço.";
+    }
+        else{
+        resultado =
+            "Seus sintomas foram registrados. Procure orientação médica caso persistam.";
+        }
+    document.getElementById("resultadoTexto")
+    .innerText = resultado;
+    }
+</script>
+
+
+</body>
+</html>
